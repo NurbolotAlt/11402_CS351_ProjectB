@@ -1,29 +1,59 @@
-# 11402_CS351_ProjectB
-## Description
+# CSV Mini Database & Query Engine (Project B)
 
-This project is for CS351, focusing on [briefly describe the project's purpose, e.g., implementing algorithms or data structures]. It includes source code, documentation, and examples.
+This repository implements a small, educational CSV mini-database and query engine in modern C++ (C++17).
 
-## Features
+Features:
+- Robust CSV parser that handles quoted fields and embedded commas/quotes.
+- In-memory table representation with optional simple hash indexes.
+- Very small query grammar supporting `SELECT` and `WHERE` with equality (and numeric comparisons).
+- Small CLI to load CSV files, build an index, and run queries.
 
-- Feature 1: Description
-- Feature 2: Description
+Build (recommended):
 
-## Installation
+1. Create a build directory and run CMake:
 
-1. Clone the repository: `git clone https://github.com/username/11402_CS351_ProjectB.git`
-2. Navigate to the directory: `cd 11402_CS351_ProjectB`
-3. Install dependencies: `pip install -r requirements.txt` (if applicable)
+```bash
+mkdir build && cd build
+cmake ..
+cmake --build .
+```
 
-## Usage
+2. Run the binary from the project root (example):
 
-Run the main script: `python main.py`
+```bash
+./build/csvdb examples/data.csv
+```
 
-## Contributing
+Notes:
+- This project uses a tiny, hand-written CSV parser (no external dependencies). You may optionally integrate a library via `vcpkg` or `Conan`.
+- The query engine is intentionally simple for teaching: it shows trade-offs between full parsing, indexing, and execution speed.
 
-1. Fork the repository.
-2. Create a feature branch.
-3. Submit a pull request.
+Quick CLI examples:
 
-## License
+- Load a CSV and run a query (from repo root):
 
-This project is licensed under the MIT License.
+```bash
+./build/csvdb examples/data.csv
+# then at the prompt:
+> index id
+> select name,age where id = 2
+```
+
+Project layout:
+- `CMakeLists.txt` — build rules.
+- `src/` — source for parser, table, query, and CLI.
+- `examples/` — sample CSV files.
+
+Teaching goals:
+- CSV parsing (quoted fields, edge cases)
+- Indexing trade-offs (memory vs. query speed)
+- Simple query grammar design and implementation
+- Performance considerations (streaming vs. full load)
+
+If you'd like, I can:
+- Add more query operators (`AND`/`OR`, LIKE),
+- Add persistent on-disk indexes, or
+- Integrate a CSV parsing library via `vcpkg`.
+
+---
+Updated: April 2026
